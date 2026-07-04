@@ -27,6 +27,25 @@ const RecentPullRequests: React.FC<RecentPullRequestsProps> = ({ data, showAvata
       showAvatar={showAvatar}
       renderDetails={(item) => (
         <div className="mt-2 flex flex-wrap items-center text-sm text-gray-600 dark:text-gray-400">
+          {item.state && (
+            <div className="mr-4 flex items-center">
+              <span
+                className={`inline-flex items-center rounded-lg px-2 py-0.5 text-xs font-medium text-white ${
+                  item.state.toLowerCase() === 'closed' && item.mergedAt
+                    ? 'bg-[#8657E5]'
+                    : item.state.toLowerCase() === 'closed'
+                      ? 'bg-[#DA3633]'
+                      : 'bg-[#238636]'
+                }`}
+              >
+                {item.state.toLowerCase() === 'closed' && item.mergedAt
+                  ? 'Merged'
+                  : item.state.toLowerCase() === 'closed'
+                    ? 'Closed'
+                    : 'Open'}
+              </span>
+            </div>
+          )}
           <div className="mr-4 flex items-center">
             <FaCalendar className="mr-2 h-4 w-4" />
             <span>{formatDate(item.createdAt)}</span>
